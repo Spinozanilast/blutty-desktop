@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="Bluetooth/Bluetooth.csproj" />
   <Project Path="BluttyAnnounceNotification\BluttyAnnounceNotification.csproj" />
   <Project Path="BluttyDaemon\BluttyDaemon.csproj" />
   <Project Path="BluttyRpc/BluttyRpc.csproj" />

@@ -2,14 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Blutty.App"
              xmlns:local="using:Blutty"
-             RequestedThemeVariant="Default">
-    <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
+             RequestedThemeVariant="Default"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             >
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
   
     <Application.Styles>
-        <FluentTheme />
+        <sukiUi:SukiTheme ThemeColor="Red"  />
     </Application.Styles>
 </Application>

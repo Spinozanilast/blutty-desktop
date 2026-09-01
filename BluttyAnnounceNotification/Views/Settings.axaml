@@ -1,0 +1,70 @@
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                   xmlns:vm="using:Blutty.ViewModels"
+                   xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System.ObjectModel"
+                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                   x:Class="Blutty.Views.Settings"
+                   x:DataType="vm:SettingsViewModel"
+                   Title="Settings"
+                   Width="500" Height="400"
+                   CanResize="False"
+                   Topmost="True">
+    <Border Margin="12"
+            CornerRadius="12"
+            BorderThickness="1">
+
+        <DockPanel>
+            <Border DockPanel.Dock="Bottom"
+                    Padding="16,12"
+                    BorderThickness="0,1,0,0"
+                    BorderBrush="{DynamicResource SukiBorderBrush}">
+                <Button Content="Save Settings"
+                        Command="{Binding SaveCommand}"
+                        HorizontalAlignment="Right"
+                        Padding="16,8" />
+            </Border>
+
+            <sukiUi:SettingsLayout>
+                <sukiUi:SettingsLayout.Items>
+                    <objectModel:ObservableCollection x:TypeArguments="sukiUi:SettingsLayoutItem">
+                        <sukiUi:SettingsLayoutItem Header="Notification Screen">
+                            <sukiUi:SettingsLayoutItem.Content>
+                                <StackPanel Spacing="8" Margin="8">
+                                    <sukiUi:GlassCard>
+                                        <StackPanel>
+                                            <TextBlock Text="Choose which screen to display notifications on:"
+                                                       Opacity="0.7" FontSize="12" />
+                                            <ComboBox ItemsSource="{Binding AvailableScreens}"
+                                                      SelectedIndex="{Binding SelectedScreenIndex}"
+                                                      HorizontalAlignment="Stretch"
+                                                      MinWidth="300" />
+                                            <TextBlock Text="Default: Current active screen"
+                                                       Opacity="0.5" FontSize="11" />
+                                        </StackPanel>
+                                    </sukiUi:GlassCard>
+                                    <sukiUi:GlassCard>
+                                        <StackPanel>
+                                            <TextBlock Text="How long the notification stays visible:"
+                                                       Opacity="0.7" FontSize="12" />
+                                            <Grid ColumnDefinitions="*,Auto" VerticalAlignment="Center">
+                                                <Slider Grid.Column="0" Minimum="1" Maximum="15" VerticalAlignment="Center"
+                                                        Value="{Binding NotificationDelaySeconds}" />
+                                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="10 0 0 0 " Width="30"
+                                                           Text="{Binding NotificationDelaySeconds, StringFormat='{}{0:0.0}s'}" />
+                                            </Grid>
+                                            <TextBlock Text="Default: 4 seconds"
+                                                       Opacity="0.5" FontSize="11" />
+                                        </StackPanel>
+                                    </sukiUi:GlassCard>
+                                </StackPanel>
+                            </sukiUi:SettingsLayoutItem.Content>
+                        </sukiUi:SettingsLayoutItem>
+                    </objectModel:ObservableCollection>
+                </sukiUi:SettingsLayout.Items>
+            </sukiUi:SettingsLayout>
+        </DockPanel>
+    </Border>
+</sukiUi:SukiWindow>

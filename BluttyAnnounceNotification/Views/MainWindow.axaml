@@ -1,23 +1,60 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:Blutty.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Blutty.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="BluttyAnnounceNotification"
-        TransparencyLevelHint="Mica"
-        Topmost="True"
-        Width="300"
-        Height="400"
-        Background="Transparent">
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:vm="using:Blutty.ViewModels"
+                   xmlns:lucide="using:Lucide.Avalonia"
+                   xmlns:controls="using:Blutty.Controls"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
+                   x:Class="Blutty.Views.MainWindow"
+                   x:DataType="vm:MainWindowViewModel"
+                   xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+                   Icon="/Assets/icon.png"
+                   Title="Blutty"
+                   Topmost="True"
+                   Width="400"
+                   Height="200"
+                   CanResize="False"
+                   WindowStartupLocation="Manual"
+                   ShowInTaskbar="False"
+                   Background="Transparent"
+                   TransparencyLevelHint="AcrylicBlur">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid Margin="16" ColumnDefinitions="Auto,*,Auto">
 
-</Window>
+        <Viewbox Width="120" HorizontalAlignment="Center">
+            <Image Source="avares://BluttyAnnounceNotification/Assets/airpods_test_cover.png" />
+        </Viewbox>
+
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="16,0">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding DeviceName}"
+                           FontSize="26"
+                           FontWeight="SemiBold" />
+                <controls:BluetoothStateIcon Margin="10 0" IsVisible="{Binding StatusText.Length}"
+                                          State="{Binding BluetoothState}" />
+            </StackPanel>
+            <TextBlock Text="{Binding DeviceAddress}"
+                       FontSize="12"
+                       Opacity="0.6"
+                       Margin="0,2,0,0" />
+        </StackPanel>
+
+        <Button Grid.Column="2"
+                Width="36" Height="36"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderThickness="0"
+                Padding="4"
+                ToolTip.Tip="Settings"
+                x:Name="SettingsButton">
+            <lucide:LucideIcon Kind="Settings" StrokeWidth="1.5" Size="20" />
+        </Button>
+    </Grid>
+
+</sukiUi:SukiWindow>

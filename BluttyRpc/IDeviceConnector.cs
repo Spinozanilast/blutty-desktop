@@ -1,4 +1,3 @@
-using HashtagChris.DotNetBlueZ;
 using DeviceProperties = HashtagChris.DotNetBlueZ.Device1Properties;
 
 namespace BluttyRpc;
