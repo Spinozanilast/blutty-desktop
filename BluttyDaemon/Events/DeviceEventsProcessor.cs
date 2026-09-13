@@ -1,6 +1,7 @@
 using System.IO.Pipes;
+using Bluezat.Events;
+using Bluezat.Wrappers;
 using BluttyRpc;
-using HashtagChris.DotNetBlueZ;
 using Microsoft.Extensions.Logging;
 using StreamJsonRpc;
 
@@ -23,12 +24,12 @@ public class DeviceEventsProcessor : IDeviceEventsProcessor, IDisposable
 
     public void Dispose() => _deviceConnector?.Dispose();
 
-    public async Task OnDeviceFoundAsync(Adapter adapter, DeviceFoundEventArgs args)
+    public async Task OnDeviceFoundAsync(Adapter adapter, FoundDeviceBluezEventArgs args)
     {
         try
         {
             var device = args.Device;
-            var deviceAttrs = await device.GetAllAsync();
+            var deviceAttrs = await device.GetPropertiesAsync();
             _logger.LogDeviceFound(deviceAttrs.Address, deviceAttrs.Name);
 
             device.Connected += OnDeviceConnectedAsync;
@@ -40,11 +41,11 @@ public class DeviceEventsProcessor : IDeviceEventsProcessor, IDisposable
         }
     }
 
-    public async Task OnDeviceConnectedAsync(Device device, BlueZEventArgs args)
+    public async Task OnDeviceConnectedAsync(Device device, BluezEventArgs args)
     {
         try
         {
-            var deviceAttrs = await device.GetAllAsync();
+            var deviceAttrs = await device.GetPropertiesAsync();
             _logger.LogDeviceConnected(deviceAttrs.Address, deviceAttrs.Name);
 
             _deviceConnector.SendConnectedDeviceInfo(isConnected: true, deviceAttrs);
@@ -55,11 +56,11 @@ public class DeviceEventsProcessor : IDeviceEventsProcessor, IDisposable
         }
     }
 
-    public async Task OnDeviceDisconnectedAsync(Device device, BlueZEventArgs args)
+    public async Task OnDeviceDisconnectedAsync(Device device, BluezEventArgs args)
     {
         try
         {
-            var deviceAttrs = await device.GetAllAsync();
+            var deviceAttrs = await device.GetPropertiesAsync();
             _logger.LogDeviceDisconnected(deviceAttrs.Address, deviceAttrs.Name);
 
             _deviceConnector.SendConnectedDeviceInfo(isConnected: false, deviceAttrs);

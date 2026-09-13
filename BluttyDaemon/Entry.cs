@@ -1,6 +1,7 @@
 using System.IO.Pipes;
 using BluttyRpc;
 using Microsoft.Extensions.Logging;
+using Tmds.DBus.Protocol;
 
 namespace BluttyDaemon;
 
@@ -13,7 +14,12 @@ internal partial class Entry
             .AddConsole());
         var logger = loggerFactory.CreateLogger<BluttyDaemon>();
 
-        var dbusListener = await BluezDBusListener.PrepareDefaultAsync(loggerFactory.CreateLogger<BluezDBusListener>());
+        var dbusConnection = DBusConnection.System;
+        await dbusConnection.ConnectAsync();
+
+        var dbusListener =
+            await BluezDBusListener.PrepareDefaultAsync(dbusConnection,
+                loggerFactory.CreateLogger<BluezDBusListener>());
 
         await using var _readyClientSteam = new NamedPipeClientStream(serverName: ".", pipeName: RpcConfig.RpcPipeName,
             PipeDirection.InOut,
@@ -21,7 +27,8 @@ internal partial class Entry
 
         await _readyClientSteam.ConnectAsync();
 
-        var deviceEventsProcessor = new DeviceEventsProcessor(_readyClientSteam, loggerFactory.CreateLogger<DeviceEventsProcessor>());
+        var deviceEventsProcessor =
+            new DeviceEventsProcessor(_readyClientSteam, loggerFactory.CreateLogger<DeviceEventsProcessor>());
         try
         {
             var bluttyDaemon = new BluttyDaemon(dbusListener, deviceEventsProcessor, logger);
@@ -32,4 +39,4 @@ internal partial class Entry
             deviceEventsProcessor.Dispose();
         }
     }
-}   
+}

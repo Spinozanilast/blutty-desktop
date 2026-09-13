@@ -19,9 +19,7 @@ public partial class MainWindow : SukiWindow
         _settingsService = new SettingsService();
         _settingsService.Load();
         Opened += OnOpened;
-
- 
-
+        
         SettingsButton.Click += OnSettingsClick;
     }
 
@@ -31,22 +29,21 @@ public partial class MainWindow : SukiWindow
         _isInitialized = true;
 
         PositionOnConfiguredScreen();
-        Hide();
     }
 
     private void PositionOnConfiguredScreen()
     {
-        var screens = Screens.All;
-        if (screens.Count == 0) return;
+        if (Screens is not { } screens || screens.All.Count == 0) return;
 
+        var allScreens = screens.All;
         var screenIndex = _settingsService.Settings.NotificationScreenIndex;
-        var screen = (screenIndex >= 1 && screenIndex <= screens.Count)
-            ? screens[screenIndex]
-            : Screens.ScreenFromWindow(this) ?? screens[0];
+        var screen = (screenIndex >= 1 && screenIndex < allScreens.Count)
+            ? allScreens[screenIndex]
+            : screens.ScreenFromWindow(this) ?? allScreens[0];
 
         var workArea = screen.WorkingArea;
         var x = workArea.X + (workArea.Width - Width) / 2;
-        var y = workArea.Y + workArea.Height - Height - 16;
+        var y = workArea.Y + Height + 16;
         Position = new PixelPoint((int)x, (int)y);
     }
 

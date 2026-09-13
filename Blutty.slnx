@@ -2,4 +2,6 @@
   <Project Path="BluttyAnnounceNotification\BluttyAnnounceNotification.csproj" />
   <Project Path="BluttyDaemon\BluttyDaemon.csproj" />
   <Project Path="BluttyRpc/BluttyRpc.csproj" />
+  <Project Path="PlatformsPipes/PlatformsPipes.csproj" />
+  <Project Path="TestStarter/TestStarter.csproj" />
 </Solution>

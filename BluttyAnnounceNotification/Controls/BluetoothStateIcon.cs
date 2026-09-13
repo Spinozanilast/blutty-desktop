@@ -1,5 +1,4 @@
 using Avalonia;
-using Blutty.Controls;
 using Lucide.Avalonia;
 
 namespace Blutty.Controls;

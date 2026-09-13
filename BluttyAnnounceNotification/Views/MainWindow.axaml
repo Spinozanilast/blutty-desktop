@@ -35,8 +35,8 @@
                 <TextBlock Text="{Binding DeviceName}"
                            FontSize="26"
                            FontWeight="SemiBold" />
-                <controls:BluetoothStateIcon Margin="10 0" IsVisible="{Binding StatusText.Length}"
-                                          State="{Binding BluetoothState}" />
+                <controls:BluetoothStateIcon Margin="10 0"
+                                             State="{Binding BluetoothState}" />
             </StackPanel>
             <TextBlock Text="{Binding DeviceAddress}"
                        FontSize="12"

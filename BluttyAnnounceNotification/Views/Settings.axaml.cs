@@ -1,4 +1,3 @@
-using Avalonia.Platform;
 using Blutty.ViewModels;
 using SukiUI.Controls;
 

@@ -1,4 +1,4 @@
-using HashtagChris.DotNetBlueZ;
+using Bluezat.Events;
 
 namespace BluttyDaemon;
 

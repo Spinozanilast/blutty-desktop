@@ -1,10 +1,12 @@
-using HashtagChris.DotNetBlueZ;
+
+using Bluezat.Events;
+using Bluezat.Wrappers;
 
 namespace BluttyDaemon;
 
 public interface IDeviceEventsProcessor
 {
-    Task OnDeviceFoundAsync(Adapter adapter, DeviceFoundEventArgs eventArgs);
-    Task OnDeviceConnectedAsync(Device device, BlueZEventArgs eventArgs);
-    Task OnDeviceDisconnectedAsync(Device device, BlueZEventArgs eventArgs);
+    Task OnDeviceFoundAsync(Adapter adapter, FoundDeviceBluezEventArgs eventArgs);
+    Task OnDeviceConnectedAsync(Device device, BluezEventArgs eventArgs);
+    Task OnDeviceDisconnectedAsync(Device device, BluezEventArgs eventArgs);
 }
