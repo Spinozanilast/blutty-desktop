@@ -14,6 +14,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\BluttyRpc\BluttyRpc.csproj" />
+        <ProjectReference Include="..\PlatformsPipes\PlatformsPipes.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,6 +28,7 @@
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" />
         <PackageReference Include="Lucide.Avalonia" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
         <PackageReference Include="Spinozanilast.Bluezat" />
         <PackageReference Include="StreamJsonRpc" />
         <PackageReference Include="SukiUI" />

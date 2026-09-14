@@ -10,7 +10,7 @@
                    x:DataType="vm:MainWindowViewModel"
                    xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
                    Icon="/Assets/icon.png"
-                   Title="Blutty"
+                   Title="Blutty Notification"
                    Topmost="True"
                    Width="400"
                    Height="200"
@@ -20,14 +20,11 @@
                    Background="Transparent"
                    TransparencyLevelHint="AcrylicBlur">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel />
-    </Design.DataContext>
-
     <Grid Margin="16" ColumnDefinitions="Auto,*,Auto">
 
         <Viewbox Width="120" HorizontalAlignment="Center">
-            <Image Source="avares://BluttyAnnounceNotification/Assets/airpods_test_cover.png" />
+            <sukiUi:WaveProgress IsTextVisible="{Binding IsTextVisible}"
+                                 Value="{Binding ProgressValue}" />
         </Viewbox>
 
         <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="16,0">

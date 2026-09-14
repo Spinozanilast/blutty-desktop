@@ -1,13 +1,11 @@
-using Blutty.ViewModels;
 using SukiUI.Controls;
 
 namespace Blutty.Views;
 
 public partial class Settings : SukiWindow
 {
-    public Settings(SettingsViewModel viewModel)
+    public Settings()
     {
         InitializeComponent();
-        DataContext = viewModel;
     }
 }

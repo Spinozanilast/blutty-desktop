@@ -12,8 +12,8 @@ namespace PlatformsPipes.Linux;
 public class HyprlandSocketClient
 {
     public const string ComposerName = "Hyprland";
-    public const string HyprlandInstanceSignatureVarName = "HYPRLAND_INSTANCE_SIGNATURE";
     public const string XdgRuntimeDirVarName = "XDG_RUNTIME_DIR";
+    public static readonly string HyprlandInstanceSignatureVarName = "HYPRLAND_INSTANCE_SIGNATURE";
 
     public string HyprlandInstanceSignature { get; private set; } = string.Empty;
     public string XdgRuntimeDirectory { get; private set; } = string.Empty;

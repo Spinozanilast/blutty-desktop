@@ -15,6 +15,7 @@ public class SettingsService
     private static readonly string SettingsDir = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "Blutty");
+
     private static readonly string SettingsPath = Path.Combine(SettingsDir, "settings.json");
 
     public AppSettings Settings { get; private set; } = new();
@@ -25,11 +26,10 @@ public class SettingsService
     {
         try
         {
-            if (File.Exists(SettingsPath))
-            {
-                var json = File.ReadAllText(SettingsPath);
-                Settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
-            }
+            if (!File.Exists(SettingsPath)) return;
+
+            var json = File.ReadAllText(SettingsPath);
+            Settings = JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
         }
         catch
         {

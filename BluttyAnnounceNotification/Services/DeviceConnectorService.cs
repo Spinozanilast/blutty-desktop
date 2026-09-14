@@ -3,7 +3,6 @@ using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
 using Avalonia.Threading;
-using Bluezat.DBus;
 using BluttyRpc;
 using StreamJsonRpc;
 
@@ -11,15 +10,12 @@ namespace Blutty.Services;
 
 public class DeviceConnectorService : IDeviceConnector
 {
-    private readonly Action<bool, DeviceProperties> _onDeviceEvent;
     private NamedPipeServerStream? _pipeServer;
     private JsonRpc? _rpc;
     private CancellationTokenSource? _cts;
 
-    public DeviceConnectorService(Action<bool, DeviceProperties> onDeviceEvent)
-    {
-        _onDeviceEvent = onDeviceEvent;
-    }
+    internal event Action<bool, DeviceInfo>? DeviceChanged;
+    internal event Action<string, byte>? BatteryChanged;
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -45,8 +41,9 @@ public class DeviceConnectorService : IDeviceConnector
             {
                 break;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"DeviceConnectorService error: {ex}");
                 await Task.Delay(1000, _cts.Token).ConfigureAwait(false);
             }
             finally
@@ -57,9 +54,14 @@ public class DeviceConnectorService : IDeviceConnector
         }
     }
 
-    public void SendConnectedDeviceInfo(bool isConnected, DeviceProperties info)
+    public void SendConnectedDeviceInfo(bool isConnected, DeviceInfo info)
     {
-        Dispatcher.UIThread.Post(() => _onDeviceEvent.Invoke(isConnected, info));
+        Dispatcher.UIThread.Post(() => DeviceChanged?.Invoke(isConnected, info));
+    }
+
+    public void SendBatteryPercentage(string address, byte batteryPercentage)
+    {
+        Dispatcher.UIThread.Post(() => BatteryChanged?.Invoke(address, batteryPercentage));
     }
 
     public void ConnectToDevice(string address)

@@ -9,4 +9,12 @@ public static class Hyprlua
             return $"hl.dsp.window.move({{x={x},y={y},relative={relative},window=\"{windowDefinition}\"}})";
         }
     }
+
+    public record struct CenterWindowCommand(string windowDefinition) : ICommand
+    {
+        public string GetString()
+        {
+            return $"hl.dsp.window.center({{window=\"{windowDefinition}\"}})";
+        }
+    }
 }

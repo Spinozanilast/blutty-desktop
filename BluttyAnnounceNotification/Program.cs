@@ -18,11 +18,11 @@ sealed class Program
         var builder = AppBuilder.Configure<App>()
             .UsePlatformDetect();
 
-        // if (OperatingSystem.IsLinux()
-        //     && Environment.GetEnvironmentVariable("WAYLAND_DISPLAY") is not null)
-        // {
-        //     builder = builder.UseWayland();
-        // }
+        if (OperatingSystem.IsLinux()
+            && Environment.GetEnvironmentVariable("WAYLAND_DISPLAY") is not null)
+        {
+            builder = builder.UseWayland();
+        }
 
         return builder
 #if DEBUG
